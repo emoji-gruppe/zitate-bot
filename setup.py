@@ -15,18 +15,18 @@ with open('src/discord_bot/version.py') as f:
 
 setup(
     # TODO: Adjust your project information here
-    name='discord_bot',
+    name='Zitate Bot',
     version=version,
-    description='A discord bot template',
+    description='A Discord bot for quotes',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/nonchris/discord-bot',
-    author='nonchris',
-    author_email='info@nonchris.eu',
+    url='https://github.com/emoji-gruppe/zitate-bot',
+    author='miguelcz',
+    author_email='contact@miguelcz.com',
 
     project_urls={
         'Bug Reports': 'https://github.com/nonchris/discord-bot/issues',
-        'Source': 'https://github.com/https://github.com/nonchris/discord-bot',
+        'Source': 'https://github.com/nonchris/discord-bot',
     },
 
     keywords='discord-bot',
