@@ -7,6 +7,7 @@ from discord.ext import tasks
 
 from ..log_setup import logger
 from ..utils import utils as ut
+from ..environment import CHANNEL_ID
 
 
 ### @package misc
@@ -62,7 +63,11 @@ class Misc(commands.Cog):
     # This one will be called on each message the bot receives
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        pass
+        channel = self.bot.get_channel(CHANNEL_ID)
+        messages = await channel.history(limit=10).flatten()
+
+        for msg in messages:
+            logger.info(msg.content)
 
     # Example for a task
     # It can be started using self.my_task.start() e.g. from this cogs __init__
