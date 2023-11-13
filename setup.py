@@ -37,7 +37,7 @@ setup(
 
     classifiers=[
 
-        'Development Status :: 5 - Production/Stable',
+        'Development Status :: 1 - Production/Stable',
 
         'Environment :: Console',
 
