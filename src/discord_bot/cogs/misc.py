@@ -63,15 +63,14 @@ class Misc(commands.Cog):
     # This one will be called on each message the bot receives
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        channel = self.bot.get_channel(CHANNEL_ID)
-        messages = await channel.history(limit=10).flatten()
+        messages = message.channel.history(limit=10)
 
-        for msg in messages:
+        async for msg in messages:
             logger.info(msg.content)
 
     # Example for a task
     # It can be started using self.my_task.start() e.g. from this cogs __init__
-    @tasks.loop(seconds=60)
+    @tasks.loop(seconds=10)
     async def my_task(self):
         pass
 
