@@ -94,3 +94,4 @@ PREFIX = load_env("PREFIX", "b!", config_dict=cfg_dict)
 OWNER_NAME = load_env("OWNER_NAME", "unknown", config_dict=cfg_dict)  # owner name with tag e.g. pi#3141
 OWNER_ID = int(load_env("OWNER_ID", "100000000000000000", config_dict=cfg_dict))  # discord id of the owner
 ACTIVITY_NAME = load_env("ACTIVITY_NAME", f"{PREFIX}help", config_dict=cfg_dict)  # activity bot plays
+CHANNEL_ID = load_env("CHANNEL_ID", 0, config_dict=cfg_dict)  # Zitate channel id
