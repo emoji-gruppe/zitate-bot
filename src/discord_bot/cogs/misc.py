@@ -79,14 +79,12 @@ class Misc(commands.Cog):
         if user.bot:
             return
         
-        logger.info("catched")
+        msg_id: int = reaction.message.id
+        
         if reaction.emoji == self.emoji_up:
             logger.info("up")
         elif reaction.emoji == self.emoji_down:
             logger.info("down")
-
-        logger.info(reaction.message.content)
-        logger.info(reaction.message.id)
 
     # Example for an event listener
     # This one will be called on each message the bot receives
@@ -97,7 +95,8 @@ class Misc(commands.Cog):
             #messages = ch.history(limit=10000)
 
             #async for msg in messages:
-                # Check if msg is a Zitat
+            
+            # Check if msg is a Zitat
             if self.check_zeichen(message.content):
                 zitat_result = re.findall(r'"(.*)"', message.content)
                 mention_result = re.findall(r'<@(.*)>', message.content)
