@@ -59,14 +59,30 @@ class Misc(commands.Cog):
             ephemeral=ephemeral
         )
 
+    def check_zeichen(self, msg: str) -> bool:
+        zeichen = ["'", '"', "“"]
+
+        if "@" in msg:
+            for z in zeichen:
+                if z in msg:
+                    return True
+        
+        return False
+
+
     # Example for an event listener
     # This one will be called on each message the bot receives
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        messages = message.channel.history(limit=10)
+        ch = message.channel
+        if ch.id == int(CHANNEL_ID):
+            messages = ch.history(limit=10000)
 
-        async for msg in messages:
-            logger.info(msg.content)
+            async for msg in messages:
+                # Check if msg is a Zitat
+                if self.check_zeichen(msg.content):
+                    logger.info(msg.content)
+
 
     # Example for a task
     # It can be started using self.my_task.start() e.g. from this cogs __init__
