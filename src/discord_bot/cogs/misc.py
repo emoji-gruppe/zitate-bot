@@ -1,5 +1,7 @@
 from typing import Literal, Optional
 
+import re
+
 import discord
 from discord import app_commands
 from discord.ext import commands
@@ -22,6 +24,8 @@ class Misc(commands.Cog):
 
     def __init__(self, bot):
         self.bot: commands.Bot = bot
+        self.emoji_up: str = "⬆"
+        self.emoji_down: str = "⬇"
 
     # a chat based command
     @commands.command(name='ping', help="Check if Bot available")
@@ -68,7 +72,21 @@ class Misc(commands.Cog):
                     return True
         
         return False
+    
+    @commands.Cog.listener()
+    async def on_reaction_add(self, reaction, user):
+        # Ignore bot reactions
+        if user.bot:
+            return
+        
+        logger.info("catched")
+        if reaction.emoji == self.emoji_up:
+            logger.info("up")
+        elif reaction.emoji == self.emoji_down:
+            logger.info("down")
 
+        logger.info(reaction.message.content)
+        logger.info(reaction.message.id)
 
     # Example for an event listener
     # This one will be called on each message the bot receives
@@ -76,12 +94,19 @@ class Misc(commands.Cog):
     async def on_message(self, message: discord.Message):
         ch = message.channel
         if ch.id == int(CHANNEL_ID):
-            messages = ch.history(limit=10000)
+            #messages = ch.history(limit=10000)
 
-            async for msg in messages:
+            #async for msg in messages:
                 # Check if msg is a Zitat
-                if self.check_zeichen(msg.content):
-                    logger.info(msg.content)
+            if self.check_zeichen(message.content):
+                zitat_result = re.findall(r'"(.*)"', message.content)
+                mention_result = re.findall(r'<@(.*)>', message.content)
+                if len(zitat_result) != 0 or len(mention_result) != 0:
+                    zitat = zitat_result[0]
+                    mention = mention_result[0]
+                    logger.info(f"[{message.id}] {zitat} ({mention})")
+                    await message.add_reaction(self.emoji_up)
+                    await message.add_reaction(self.emoji_down)
 
 
     # Example for a task
